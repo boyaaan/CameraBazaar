@@ -1,0 +1,12 @@
+﻿@model CameraPageModel
+
+<div style="margin: 2vw ; border: thin solid black; margin: 2vw">
+
+    @{
+        await Html.RenderPartialAsync("_DetailForUser");
+    }
+
+    @{
+        await Html.RenderPartialAsync("_AllCamerasPartialView");
+    }
+</div>

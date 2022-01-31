@@ -1,0 +1,76 @@
+﻿@model CameraPageModel
+
+@{
+    ViewData["Title"] = "All Cameras";
+}
+
+<div style="border: thin solid black">
+    <h2 style="margin: 2vw"><b>@ViewData["Title"]</b></h2>
+
+    @foreach (var item in Model.Cameras)
+    {
+        <div style=" display: flex; border: thin solid black; margin: 1vw">
+            <div style="width: 25%; margin: 1vw">
+                <img src=@Url.Content(@item.ImageURL) width="250" height="180">
+            </div>
+            <div style="width: 30%; margin: 1vw">
+                <h2 style="text-align: left">
+                    <b>{@item.Make} {@item.Model}</b>
+                </h2>
+                <div>
+                    <h2 style="padding-top: 6vw; padding-right: 12vw"><a href="details/@item.Id"><u>Details</u></a></h2>
+                </div>
+            </div>
+            <div style="width: 40%; margin: 1vw">
+                <h2 style="text-align: left"><b>$@item.Price</b></h2>
+
+                @{var instockOutstock = (item.Quantity == 0 ? "OUT OF STOCK" : "IN STOCK");}
+                @if (instockOutstock == "OUT OF STOCK")
+                {
+                    <h2 style="text-align: left;width: 100%; color: red; padding-top: 6vw; ">
+                        OUT OF STOCK
+                    </h2>
+                }
+                else
+                {
+                    <h2 style="width: 100%;color: green; padding-top: 6vw;">
+                        IN STOCK
+                    </h2>
+                }
+            </div>
+            <div style="width: 15%; margin: 1vw">
+                <a href="/camera/delete/@item.Id" class="brn btn-danger form-control text-center" style="font-size : 24px; width: 100%; height: 50px; margin-top: 1vw">Delete</a>
+                <a href="/camera/edit/@item.Id" class="brn btn-primary form-control text-center" style="font-size : 24px; width: 100%; height: 50px; margin-top: 3vw">Edit</a>
+            </div>
+        </div>
+    }
+</div>
+<br />
+
+@{
+    var previousDisable = Model.PreviousPage == 1 ? "Disabled" : string.Empty;
+    var nextDisable = Model.CurrentPage == Model.TotalPages ? "Disabled" : string.Empty;
+}
+
+<div style="margin-left: 1vw">
+    <ul class="pagination">
+        <li class="page-item @previousDisable">
+            <a class="page-link @previousDisable" href="@Model.Url?page=@Model.PreviousPage" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)">
+                <a class="page-link" href="@Model.Url?page=@i">@i</a>
+            </li>
+        }
+        <li class="page-item @nextDisable">
+            <a class="page-link @nextDisable" href="@Model.Url?page=@Model.NextPage" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</div>

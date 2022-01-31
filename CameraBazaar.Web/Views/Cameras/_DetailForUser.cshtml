@@ -1,0 +1,14 @@
+﻿@model CameraPageModel
+@inject UserManager<IdentityUser> cameras
+
+
+<div style="margin: 2vw; margin-top:1vw">
+    <h2><b>{@User.Identity.Name}</b></h2>
+    <h2 style="margin-left: 3vw">Email: <a href=""><u>@cameras.Users.Where(u => User.Identity.Name == u.UserName).FirstOrDefault().Email</u></a></h2>
+    <h2 style="margin-left: 2vw"><b>Phone: @cameras.Users.Where(u => User.Identity.Name == u.UserName).FirstOrDefault().PhoneNumber</b></h2>
+
+    @{var instock = Model.Cameras.Where(q => q.Quantity != 0).ToList(); }
+    @{var outstock = Model.Cameras.Where(q => q.Quantity == 0).ToList(); }
+
+    <h2><b>Cameras: @(instock.Count) in stock / @(outstock.Count) out of stock</b></h2>
+</div>
