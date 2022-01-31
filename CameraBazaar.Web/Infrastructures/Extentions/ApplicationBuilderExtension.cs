@@ -45,7 +45,7 @@
                 //                UserName = adminEmail
                 //            };
 
-                //            await userManager.CreateAsync(adminUser, "Boyan16091979");
+                //            await userManager.CreateAsync(adminUser, "123456789");
                 //            await userManager.AddToRoleAsync(adminUser, adminName);
                 //        }
                 //    })
